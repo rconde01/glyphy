@@ -13,7 +13,7 @@ foreach(_shaderFile ${SHADERS})
 	add_custom_command(
 		OUTPUT ${_sheader}
 		COMMAND ${CMAKE_COMMAND} -DHEADER_FILE="${_sheader}" -DSHADER_FILE="${_shaderFile}" -P stringize.cmake
-		DEPENDS ${_sheader})
+		DEPENDS ${_shaderFile})
 endforeach()
 
 
