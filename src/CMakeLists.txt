@@ -2,12 +2,9 @@ cmake_minimum_required(VERSION 2.8)
 
 project(glyphy)
 
-add_definitions(-DHAVE_CONFIG_H)
-
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake.h ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
-
 include_directories(
-	"./")
+	${CMAKE_SOURCE_DIR}
+	${CMAKE_CURRENT_SOURCE_DIR})
 
 set(SHADERS
 	glyphy-common.glsl

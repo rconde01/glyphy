@@ -2,18 +2,14 @@ cmake_minimum_required(VERSION 2.8)
 
 project(glyphy-demo)
 
-find_package(FreeType REQUIRED)
-find_package(OpenGL REQUIRED)
-find_package(GLUT REQUIRED)
-find_package(GLEW REQUIRED)
-
 include_directories(
+	"${CMAKE_SOURCE_DIR}"
+	"${CMAKE_CURRENT_SOURCE_DIR}"
 	"${CMAKE_SOURCE_DIR}/src"
 	${GLUT_INCLUDE_DIR}
 	${OPENGL_INCLUDE_DIRS}
 	${FREETYPE_INCLUDE_DIRS}
-	${GLEW_INCLUDE_DIRS}
-	${CMAKE_CURRENT_SOURCE_DIR})
+	${GLEW_INCLUDE_DIRS})
 
 link_directories(
 	"${CMAKE_SOURCE_DIR}/src")
