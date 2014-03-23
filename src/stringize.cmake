@@ -7,7 +7,7 @@ string(REPLACE "\"" "\\\"" SHADER_CONTENTS "${SHADER_CONTENTS}")
 # escape semicolons
 string(REGEX REPLACE ";" "\\\\;" SHADER_CONTENTS "${SHADER_CONTENTS}")
 # no blank lines allowed in cmake lists...so hack
-string(REGEX REPLACE "^\n" "__BLANK_LINE_HACK__\n" SHADER_CONTENTS "${SHADER_CONTENTS}")
+string(REGEX REPLACE "^\\n" "__BLANK_LINE_HACK__\n" SHADER_CONTENTS "${SHADER_CONTENTS}")
 # replace newlines with semicolons
 string(REGEX REPLACE "\n" ";" SHADER_CONTENTS "${SHADER_CONTENTS}")
 

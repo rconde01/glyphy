@@ -1,6 +1,10 @@
 cmake_minimum_required(VERSION 2.8)
 
-project(LIBGLPHY)
+project(glyphy)
+
+add_definitions(-DHAVE_CONFIG_H)
+
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake.h ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
 
 include_directories(
 	"./")
@@ -39,4 +43,4 @@ set(LIBGLYPHY_SRC
 	${PUBLICHEADERS}
 	${SHADERHEADERS})
 
-add_library(libglyphy SHARED ${LIBGLYPHY_SRC})
+add_library(glyphy SHARED ${LIBGLYPHY_SRC})
