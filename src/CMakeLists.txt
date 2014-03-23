@@ -2,6 +2,9 @@ cmake_minimum_required(VERSION 2.8)
 
 project(LIBGLPHY)
 
+include_directories(
+	"./")
+
 set(SHADERS
 	glyphy-common.glsl
 	glyphy-sdf.glsl)
