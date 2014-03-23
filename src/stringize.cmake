@@ -2,7 +2,9 @@
 file(READ ${SHADER_FILE} SHADER_CONTENTS)
 
 ### convert the shader contents into cmake list
-# first escape semicolons
+# escape quotes
+string(REPLACE "\"" "\\\"" SHADER_CONTENTS "${SHADER_CONTENTS}")
+# escape semicolons
 string(REGEX REPLACE ";" "\\\\;" SHADER_CONTENTS "${SHADER_CONTENTS}")
 # no blank lines allowed in cmake lists...so hack
 string(REGEX REPLACE "^\n" "__BLANK_LINE_HACK__\n" SHADER_CONTENTS "${SHADER_CONTENTS}")
@@ -22,4 +24,5 @@ foreach(_line ${SHADER_CONTENTS})
 		file(APPEND ${HEADER_FILE} "\"${_line}\\n\"\n")
 	endif("${_line}" STREQUAL "__BLANK_LINE_HACK__")
 endforeach()
+file(APPEND ${HEADER_FILE} ";")
 
