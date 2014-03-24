@@ -7,19 +7,20 @@ SET(CMAKE_MODULE_PATH
 	"${CMAKE_MODULE_PATH}")
 
 find_package(Freetype REQUIRED)
-set(HAVE_FREETYPE2)
+set(HAVE_FREETYPE2 1)
 find_package(OpenGL REQUIRED)
-set(HAVE_GL)
+set(HAVE_GL 1)
 find_package(GLUT REQUIRED)
-set(HAVE_GLUT)
+set(HAVE_GLUT 1)
 find_package(GLEW REQUIRED)
-set(HAVE_GLEW)
+set(HAVE_GLEW 1)
 
 execute_process(
-	COMMAND "`fc-match -v 2>/dev/null | grep 'file:' | cut -d'\"' -f2`"
+	COMMAND bash -c "fc-match -v 2>/dev/null | grep 'file:' | cut -d'\"' -f2"
 	OUTPUT_VARIABLE DEFAULT_FONT)
+string(REPLACE "\n" "" DEFAULT_FONT ${DEFAULT_FONT})
 
-set(DEFAULT_FONT "\"${DEFAULT_FONT}\"")
+set(DEFAULT_FONT "${DEFAULT_FONT}")
 
 add_definitions(-DHAVE_CONFIG_H)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake.h ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
