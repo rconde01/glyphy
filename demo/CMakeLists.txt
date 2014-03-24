@@ -57,6 +57,7 @@ target_link_libraries(glyphy-demo ${GLEW_LIBRARY})
 target_link_libraries(glyphy-demo ${OPENGL_LIBRARY})
 target_link_libraries(glyphy-demo ${GLUT_LIBRARY})
 target_link_libraries(glyphy-demo ${FREETYPE_LIBRARY})
+target_link_libraries(glyphy-demo libglyphy.so)
 
 set(GLYPHY_VALIDATE_SRC
 	glyphy-validate.cc)
@@ -67,3 +68,4 @@ target_link_libraries(glyphy-validate ${GLEW_LIBRARY})
 target_link_libraries(glyphy-validate ${OPENGL_LIBRARY})
 target_link_libraries(glyphy-validate ${GLUT_LIBRARY})
 target_link_libraries(glyphy-validate ${FREETYPE_LIBRARY})
+target_link_libraries(glyphy-validate libglyphy.so)
