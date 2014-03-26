@@ -15,12 +15,14 @@ set(HAVE_GLUT 1)
 find_package(GLEW REQUIRED)
 set(HAVE_GLEW 1)
 
-execute_process(
-	COMMAND bash -c "fc-match -v 2>/dev/null | grep 'file:' | cut -d'\"' -f2"
-	OUTPUT_VARIABLE DEFAULT_FONT)
-string(REPLACE "\n" "" DEFAULT_FONT ${DEFAULT_FONT})
-
-set(DEFAULT_FONT "${DEFAULT_FONT}")
+if(WIN32)
+	set(DEFAULT_FONT "C:\\Windows\\Fonts\\Arial.ttf")
+else(WIN32)
+	execute_process(
+		COMMAND bash -c "fc-match -v 2>/dev/null | grep 'file:' | cut -d'\"' -f2"
+		OUTPUT_VARIABLE DEFAULT_FONT)
+	string(REPLACE "\n" "" DEFAULT_FONT ${DEFAULT_FONT})
+endif(WIN32)
 
 add_definitions(-DHAVE_CONFIG_H)
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake.h ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
