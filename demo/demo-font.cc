@@ -24,9 +24,16 @@
 
 #include <glyphy-freetype.h>
 
+#ifdef _WIN32
+#include <hash_map>
+#include <vector>
+
+using namespace std;
+#else
 #include <ext/hash_map>
 
 using namespace __gnu_cxx; /* This is ridiculous */
+#endif
 
 
 typedef hash_map<unsigned int, glyph_info_t> glyph_cache_t;
@@ -163,7 +170,7 @@ encode_ft_glyph (demo_font_t      *font,
   else if (face->glyph->outline.flags & FT_OUTLINE_REVERSE_FILL)
     glyphy_outline_reverse (&endpoints[0], endpoints.size ());
 #else
-  glyphy_outline_winding_from_even_odd (&endpoints[0], endpoints.size (), false);
+  glyphy_outline_winding_from_even_odd (endpoints.size() != 0 ? &endpoints[0] : nullptr, endpoints.size (), false);
 #endif
 
   if (SCALE != 1.)
@@ -174,7 +181,7 @@ encode_ft_glyph (demo_font_t      *font,
     }
 
   double avg_fetch_achieved;
-  if (!glyphy_arc_list_encode_blob (&endpoints[0], endpoints.size (),
+  if (!glyphy_arc_list_encode_blob (endpoints.size() != 0 ? &endpoints[0] : nullptr, endpoints.size (),
 				    buffer,
 				    buffer_len,
 				    faraway / SCALE,

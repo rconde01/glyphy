@@ -27,7 +27,11 @@ extern "C" {
 #include "matrix4x4.h"
 }
 
+#ifdef _WIN32
+#include <time.h>
+#else
 #include <sys/time.h>
+#endif
 
 
 struct demo_view_t {
@@ -189,11 +193,11 @@ demo_view_apply_transform (demo_view_t *vu, float *mat)
   // Perspective
   {
     double d = std::max (width, height);
-    double near = d / vu->perspective;
-    double far = near + d;
-    double factor = near / (2 * near + d);
-    m4Frustum (mat, -width * factor, width * factor, -height * factor, height * factor, near, far);
-    m4Translate (mat, 0, 0, -(near + d * .5));
+    double Near = d / vu->perspective;
+    double Far = Near + d;
+    double factor = Near / (2 * Near + d);
+    m4Frustum(mat, -width * factor, width * factor, -height * factor, height * factor, Near, Far);
+    m4Translate(mat, 0, 0, -(Near + d * .5));
   }
 
   // Rotate

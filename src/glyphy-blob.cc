@@ -274,9 +274,9 @@ glyphy_arc_list_encode_blob (const glyphy_arc_endpoint_t *endpoints,
       unsigned int current_endpoints = tex_data.size () - offset;
 
       /* See if we can fulfill this cell by using already-encoded arcs */
-      const glyphy_rgba_t *needle = &tex_data[offset];
+      const glyphy_rgba_t *needle = (&tex_data[offset - 1]) + 1;
       unsigned int needle_len = current_endpoints;
-      const glyphy_rgba_t *haystack = &tex_data[header_length];
+      const glyphy_rgba_t *haystack = &tex_data[header_length - 1] + 1;
       unsigned int haystack_len = offset - header_length;
 
       bool found = false;
