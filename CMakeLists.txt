@@ -16,12 +16,17 @@ find_package(GLEW REQUIRED)
 set(HAVE_GLEW 1)
 
 if(WIN32)
-	set(DEFAULT_FONT "C:\\Windows\\Fonts\\Arial.ttf")
+	set(DEFAULT_FONT "C:\\\\Windows\\\\Fonts\\\\Arial.ttf")
 else(WIN32)
 	execute_process(
 		COMMAND bash -c "fc-match -v 2>/dev/null | grep 'file:' | cut -d'\"' -f2"
 		OUTPUT_VARIABLE DEFAULT_FONT)
 	string(REPLACE "\n" "" DEFAULT_FONT ${DEFAULT_FONT})
+endif(WIN32)
+
+if(WIN32)
+	add_definitions(-D_USE_MATH_DEFINES)   # so M_PI etc. are available in visual studio
+	add_definitions(_DNOMINMAX)            # so std::min/max work in visual studio
 endif(WIN32)
 
 add_definitions(-DHAVE_CONFIG_H)
