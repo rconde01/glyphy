@@ -26,7 +26,7 @@ endif(WIN32)
 
 if(WIN32)
 	add_definitions(-D_USE_MATH_DEFINES)   # so M_PI etc. are available in visual studio
-	add_definitions(_DNOMINMAX)            # so std::min/max work in visual studio
+	add_definitions(-DNOMINMAX)            # so std::min/max work in visual studio
 endif(WIN32)
 
 add_definitions(-DHAVE_CONFIG_H)
