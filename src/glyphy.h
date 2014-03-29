@@ -20,7 +20,7 @@
 #  ifdef glyphy_EXPORTS
 #     define GLYPHY_API __declspec( dllexport )
 #  else
-#     define GLYPHY_API __declspec( dllimport )
+#     define GLYPHY_API
 #  endif
 #else
 #  define GLYPHY_API
