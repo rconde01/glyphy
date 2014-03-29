@@ -49,7 +49,8 @@ set(GLYPHY_DEMO_SRC
 	matrix4x4.c
 	trackball.h
 	trackball.c
-	${SHADERHEADERS})
+	${SHADERHEADERS}
+   ${SHADERS})
 	
 add_executable(glyphy-demo ${GLYPHY_DEMO_SRC})
 

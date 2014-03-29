@@ -38,6 +38,7 @@ set(LIBGLYPHY_SRC
 	glyphy-sdf.cc
 	glyphy-shaders.cc
 	${PUBLICHEADERS}
-	${SHADERHEADERS})
+	${SHADERHEADERS}
+   ${SHADERS})
 
 add_library(glyphy STATIC ${LIBGLYPHY_SRC})
