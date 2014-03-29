@@ -69,3 +69,6 @@ target_link_libraries(glyphy-validate ${OPENGL_LIBRARY})
 target_link_libraries(glyphy-validate ${GLUT_LIBRARY})
 target_link_libraries(glyphy-validate ${FREETYPE_LIBRARY})
 target_link_libraries(glyphy-validate glyphy)
+
+install(TARGETS glyphy-demo
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
