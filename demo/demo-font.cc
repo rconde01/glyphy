@@ -170,7 +170,7 @@ encode_ft_glyph (demo_font_t      *font,
   else if (face->glyph->outline.flags & FT_OUTLINE_REVERSE_FILL)
     glyphy_outline_reverse (&endpoints[0], endpoints.size ());
 #else
-  glyphy_outline_winding_from_even_odd (endpoints.size() != 0 ? &endpoints[0] : nullptr, endpoints.size (), false);
+  glyphy_outline_winding_from_even_odd (endpoints.size() != 0 ? &endpoints[0] : NULL, endpoints.size (), false);
 #endif
 
   if (SCALE != 1.)
@@ -181,7 +181,7 @@ encode_ft_glyph (demo_font_t      *font,
     }
 
   double avg_fetch_achieved;
-  if (!glyphy_arc_list_encode_blob (endpoints.size() != 0 ? &endpoints[0] : nullptr, endpoints.size (),
+  if (!glyphy_arc_list_encode_blob(endpoints.size() != 0 ? &endpoints[0] : NULL, endpoints.size(),
 				    buffer,
 				    buffer_len,
 				    faraway / SCALE,
