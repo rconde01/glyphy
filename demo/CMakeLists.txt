@@ -73,3 +73,6 @@ target_link_libraries(glyphy-validate glyphy)
 
 install(TARGETS glyphy-demo
         RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})
+        
+install(TARGETS glyphy-validate
+        RUNTIME DESTINATION ${CMAKE_INSTALL_PREFIX})        
