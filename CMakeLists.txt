@@ -1,9 +1,9 @@
 cmake_minimum_required(VERSION 2.8)
 
-INCLUDE(CheckIncludeFiles)
-INCLUDE(CheckIncludeFileCXX)
-INCLUDE(CheckSymbolExists)
-INCLUDE(CheckFunctionExists)
+include(CheckIncludeFiles)
+include(CheckIncludeFileCXX)
+include(CheckSymbolExists)
+include(CheckFunctionExists)
 
 project(glyphy)
 
@@ -35,31 +35,38 @@ if(WIN32)
 endif(WIN32)
 
 add_definitions(-DHAVE_CONFIG_H)
-CHECK_INCLUDE_FILES(time.h HAVE_TIME_H)
-CHECK_INCLUDE_FILES(sys/time.h HAVE_SYS_TIME_H)
+check_include_files(time.h HAVE_TIME_H)
+check_include_files(sys/time.h HAVE_SYS_TIME_H)
 
-CHECK_INCLUDE_FILE_CXX(hash_map HAVE_HASH_MAP_H)
-CHECK_INCLUDE_FILE_CXX(ext/hash_map HAVE_EXT_HASH_MAP_H)
+check_include_file_cxx(hash_map HAVE_HASH_MAP_H)
+check_include_file_cxx(ext/hash_map HAVE_EXT_HASH_MAP_H)
 
-CHECK_SYMBOL_EXISTS(INFINITY math.h HAVE_INFINITY)
+check_symbol_exists(INFINITY math.h HAVE_INFINITY)
 
-CHECK_FUNCTION_EXISTS(_finite HAVE_FINITE)
-CHECK_FUNCTION_EXISTS(std::isfinite HAVE_STD_ISFINITE)
 
-CHECK_FUNCTION_EXISTS(std::isinf HAVE_STD_ISINF)
+#test for math functions
 
-CHECK_SYMBOL_EXISTS(isnan math.h HAVE_ISNAN)
-CHECK_FUNCTION_EXISTS(std::isnan HAVE_STD_ISNAN)
-CHECK_FUNCTION_EXISTS(_isnan HAVE_ISNAN_2)
+if(GCC)
+	set(CMAKE_REQUIRED_LIBRARIES m)
+endif(GCC)
 
-CHECK_FUNCTION_EXISTS(lround HAVE_LROUND)
-CHECK_FUNCTION_EXISTS(std::lround HAVE_STD_LROUND)
+check_function_exists(_finite HAVE_FINITE)
+check_function_exists(std::isfinite HAVE_STD_ISFINITE)
 
-CHECK_FUNCTION_EXISTS(round HAVE_ROUND)
-CHECK_FUNCTION_EXISTS(std::round HAVE_STD_ROUND)
+check_function_exists(std::isinf HAVE_STD_ISINF)
 
-CHECK_FUNCTION_EXISTS(log2 HAVE_LOG2)
-CHECK_FUNCTION_EXISTS(std::log2 HAVE_STD_LOG2)
+check_symbol_exists(isnan math.h HAVE_ISNAN)
+check_function_exists(std::isnan HAVE_STD_ISNAN)
+check_function_exists(_isnan HAVE_ISNAN_2)
+
+check_function_exists(lround HAVE_LROUND)
+check_function_exists(std::lround HAVE_STD_LROUND)
+
+check_function_exists(round HAVE_ROUND)
+check_function_exists(std::round HAVE_STD_ROUND)
+
+check_function_exists(log2 HAVE_LOG2)
+check_function_exists(std::log2 HAVE_STD_LOG2)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/config.cmake.h ${CMAKE_CURRENT_SOURCE_DIR}/config.h)
 
