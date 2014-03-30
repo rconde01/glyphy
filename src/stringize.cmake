@@ -16,7 +16,7 @@ string(REPLACE "." "_" SHADER_VAR ${SHADER_VAR})
 ### write out the header
 file(WRITE ${HEADER_FILE} "static const char * ${SHADER_VAR} = \n")
 foreach(_line ${SHADER_CONTENTS})
-   string(REPLACE "__BLANK_LINE_HACK__" "" _line ${_line})
+   string(REPLACE "__BLANK_LINE_HACK__" "" _line "${_line}")
    file(APPEND ${HEADER_FILE} "\"${_line}\\n\"\n")
 endforeach()
 file(APPEND ${HEADER_FILE} ";\n")
