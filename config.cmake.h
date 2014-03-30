@@ -20,9 +20,17 @@
 
 #cmakedefine HAVE_INFINITY
 
+#cmakedefine HAVE_STD_ISNAN
+
+#cmakedefine HAVE_ISNAN_MACRO
+
+#cmakedefine HAVE_ISNAN
+
 #cmakedefine HAVE_STD_ISFINITE
 
 #cmakedefine HAVE_ISFINITE
+
+#cmakedefine HAVE_ISFINITE_MACRO
 
 #cmakedefine HAVE_FINITE
 
@@ -30,13 +38,7 @@
 
 #cmakedefine HAVE_ISINF
 
-#cmakedefine HAVE_ISINF_2
-
-#cmakedefine HAVE_ISNAN
-
-#cmakedefine HAVE_STD_ISNAN
-
-#cmakedefine HAVE_ISNAN_2
+#cmakedefine HAVE_ISINF_MACRO
 
 #cmakedefine HAVE_LROUND
 
@@ -56,9 +58,10 @@
 
 #if defined(HAVE_STD_ISNAN)
 #  define isnan(x) std::isnan(x)
+#elif defined(HAVE_ISNAN_MACRO)
 #elif defined(HAVE_ISNAN)
 #  define isnan(x) isnan(x)
-#elif defined(HAVE_ISNAN_2)
+#elif defined(HAVE_ISNAN_ALT)
 #  define isnan(x) _isnan(static_cast<double>(x))
 #else
 #  error "Could not find isnan function or macro!"
@@ -66,8 +69,7 @@
 
 #if defined(HAVE_STD_ISFINITE)
 #  define isfinite(x) std::isfinite(x)
-#elif defined(HAVE_ISFINITE)
-#  define isfinite(x) isfinite(x)
+#elif defined(HAVE_ISFINITE) || defined(HAVE_ISFINITE_MACRO)
 #elif defined(HAVE_FINITE)
 #  include<float.h>
 #  define isfinite(x) _finite(static_cast<double>(x))
@@ -77,8 +79,7 @@
 
 #if defined(HAVE_STD_ISINF)
 #  define isinf(x) std::isinf(x)
-#elif defined(HAVE_ISINF)
-#  define isinf(x) isinf(x)
+#elif defined(HAVE_ISINF) || defined(HAVE_ISINF_MACRO)
 #else
 #  define isinf(x) (isfinite(x) && !isnan(x))
 #endif

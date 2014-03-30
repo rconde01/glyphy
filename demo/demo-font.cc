@@ -24,12 +24,13 @@
 
 #include <glyphy-freetype.h>
 
-#if defined(HAVE_HASH_MAP_H)
-#  include <hash_map>
-   using namespace std;
-#elif defined(HAVE_EXT_HASH_MAP_H)
+
+#if defined(HAVE_EXT_HASH_MAP_H)
 #  include <ext/hash_map>
    using namespace __gnu_cxx; /* This is ridiculous */
+#elif defined(HAVE_HASH_MAP_H)
+#  include <hash_map>
+   using namespace std;
 #else
 #  error "Don't know where to find hash_map on this platform'"
 #endif

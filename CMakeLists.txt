@@ -46,18 +46,23 @@ check_symbol_exists(INFINITY math.h HAVE_INFINITY)
 
 #test for math functions
 
-if(GCC)
+if(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 	set(CMAKE_REQUIRED_LIBRARIES m)
-endif(GCC)
+endif(CMAKE_COMPILER_IS_GNUCC OR CMAKE_COMPILER_IS_GNUCXX)
 
-check_function_exists(_finite HAVE_FINITE)
+check_function_exists(std::isnan HAVE_STD_ISNAN)
+check_function_exists(isnan HAVE_ISNAN)
+check_symbol_exists(isnan math.h HAVE_ISNAN_MACRO)
+check_function_exists(_isnan HAVE_ISNAN_ALT)
+
 check_function_exists(std::isfinite HAVE_STD_ISFINITE)
+check_function_exists(isfinite HAVE_ISFINITE)
+check_symbol_exists(isfinite math.h HAVE_ISFINITE_MACRO)
+check_function_exists(_finite HAVE_FINITE)
 
 check_function_exists(std::isinf HAVE_STD_ISINF)
-
-check_symbol_exists(isnan math.h HAVE_ISNAN)
-check_function_exists(std::isnan HAVE_STD_ISNAN)
-check_function_exists(_isnan HAVE_ISNAN_2)
+check_function_exists(isinf HAVE_ISINF)
+check_symbol_exists(isinf math.h HAVE_ISINF_MACRO)
 
 check_function_exists(lround HAVE_LROUND)
 check_function_exists(std::lround HAVE_STD_LROUND)
