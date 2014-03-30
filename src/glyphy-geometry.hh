@@ -19,6 +19,10 @@
 #ifndef GLYPHY_GEOMETRY_HH
 #define GLYPHY_GEOMETRY_HH
 
+#ifdef HAVE_CONFIG_H
+#include <config.h>
+#endif
+
 #include "glyphy-common.hh"
 
 namespace GLyphy {

@@ -27,10 +27,12 @@ extern "C" {
 #include "matrix4x4.h"
 }
 
-#ifdef _WIN32
-#include <time.h>
+#if defined(HAVE_TIME_H)
+#  include <time.h>
+#elif defined(HAVE_SYS_TIME_H)
+#  include <sys/time.h>
 #else
-#include <sys/time.h>
+#  error "Don't know what time header to include for this platform"
 #endif
 
 
@@ -350,7 +352,7 @@ demo_view_reshape_func (demo_view_t *vu, int width, int height)
   glutPostRedisplay ();
 }
 
-#define STEP 1.05
+#define STEP 1.001
 void
 demo_view_keyboard_func (demo_view_t *vu, unsigned char key, int x, int y)
 {
@@ -418,16 +420,16 @@ demo_view_keyboard_func (demo_view_t *vu, unsigned char key, int x, int y)
       break;
 
     case 'k':
-      demo_view_translate (vu, 0, -.1);
+      demo_view_translate (vu, 0, -.001);
       break;
     case 'j':
-      demo_view_translate (vu, 0, +.1);
+      demo_view_translate (vu, 0, +.001);
       break;
     case 'h':
-      demo_view_translate (vu, +.1, 0);
+      demo_view_translate (vu, +.001, 0);
       break;
     case 'l':
-      demo_view_translate (vu, -.1, 0);
+      demo_view_translate (vu, -.001, 0);
       break;
 
     case 'r':

@@ -24,15 +24,14 @@
 
 #include <glyphy-freetype.h>
 
-#ifdef _WIN32
-#include <hash_map>
-#include <vector>
-
-using namespace std;
+#if defined(HAVE_HASH_MAP_H)
+#  include <hash_map>
+   using namespace std;
+#elif defined(HAVE_EXT_HASH_MAP_H)
+#  include <ext/hash_map>
+   using namespace __gnu_cxx; /* This is ridiculous */
 #else
-#include <ext/hash_map>
-
-using namespace __gnu_cxx; /* This is ridiculous */
+#  error "Don't know where to find hash_map on this platform'"
 #endif
 
 
