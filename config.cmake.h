@@ -26,6 +26,8 @@
 
 #cmakedefine HAVE_ISNAN
 
+#cmakedefine HAVE_ISNAN_ALT
+
 #cmakedefine HAVE_STD_ISFINITE
 
 #cmakedefine HAVE_ISFINITE

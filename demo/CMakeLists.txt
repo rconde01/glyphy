@@ -50,8 +50,14 @@ set(GLYPHY_DEMO_SRC
 	trackball.h
 	trackball.c
 	${SHADERHEADERS}
-   ${SHADERS})
-	
+	${SHADERS})
+
+if(WIN32)
+	add_definitions(-DFREEGLUT_STATIC)
+	add_definitions(-DGLEW_STATIC)
+	#add_definitions(-DGLEW_MX)
+endif(WIN32)
+
 add_executable(glyphy-demo ${GLYPHY_DEMO_SRC})
 
 target_link_libraries(glyphy-demo ${GLEW_LIBRARY})
