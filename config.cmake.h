@@ -83,7 +83,7 @@
 #  define isinf(x) std::isinf(x)
 #elif defined(HAVE_ISINF) || defined(HAVE_ISINF_MACRO)
 #else
-#  define isinf(x) (isfinite(x) && !isnan(x))
+#  define isinf(x) (!isfinite(x) && !isnan(x))
 #endif
 
 #if defined(HAVE_STD_LROUND)
