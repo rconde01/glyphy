@@ -29,7 +29,7 @@ glyph_info_decode (vec4 v)
 float
 antialias (float d)
 {
-  return smoothstep (-.5, +.5, d);
+  return smoothstep (-.75, +.75, d);
 }
 
 void
