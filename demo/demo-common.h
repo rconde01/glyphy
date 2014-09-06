@@ -47,6 +47,9 @@
 /* Get Glew out of the way. */
 #ifdef HAVE_GLEW
 #  include <GL/glew.h>
+#  if defined(_WIN32)
+#     include <GL/wglew.h>
+#  endif
 #else
 #  define GLEW_OK 0
    static inline int glewInit (void) { return GLEW_OK; }

@@ -75,6 +75,8 @@ struct demo_view_t {
   int y;
   int width;
   int height;
+
+  double step;
 };
 
 demo_view_t *static_vu;
@@ -126,6 +128,7 @@ demo_view_reset (demo_view_t *vu)
   trackball (vu->quat , 0.0, 0.0, 0.0, 0.0);
   vset (vu->rot_axis, 0., 0., 1.);
   vu->rot_speed = ANIMATION_SPEED / 1000.;
+  vu->step = 1.05;
 }
 
 
@@ -165,7 +168,6 @@ demo_view_adjust_boldness (demo_view_t *vu, double factor)
 {
   demo_glstate_adjust_boldness (vu->st, factor);
 }
-
 
 static void
 demo_view_scale (demo_view_t *vu, double factor)
@@ -289,7 +291,7 @@ demo_view_toggle_vsync (demo_view_t *vu)
   LOGI ("Setting vsync %s.\n", vu->vsync ? "on" : "off");
 #if defined(__APPLE__)
   CGLSetParameter(CGLGetCurrentContext(), kCGLCPSwapInterval, &vu->vsync);
-#elif defined(__WGLEW__)
+#elif defined(__WGLEW_H__)
   if (wglewIsSupported ("WGL_EXT_swap_control"))
     wglSwapIntervalEXT (vu->vsync);
   else
@@ -352,7 +354,6 @@ demo_view_reshape_func (demo_view_t *vu, int width, int height)
   glutPostRedisplay ();
 }
 
-#define STEP 1.001
 void
 demo_view_keyboard_func (demo_view_t *vu, unsigned char key, int x, int y)
 {
@@ -382,10 +383,10 @@ demo_view_keyboard_func (demo_view_t *vu, unsigned char key, int x, int y)
       demo_view_toggle_outline (vu);
       break;
     case 'p':
-      demo_view_scale_outline_thickness (vu, STEP);
+      demo_view_scale_outline_thickness (vu, vu->step);
       break;
     case 'i':
-      demo_view_scale_outline_thickness (vu, 1. / STEP);
+      demo_view_scale_outline_thickness (vu, 1. / vu->step);
       break;
 
     case '0':
@@ -397,26 +398,26 @@ demo_view_keyboard_func (demo_view_t *vu, unsigned char key, int x, int y)
 
 
     case 'a':
-      demo_view_scale_contrast (vu, STEP);
+      demo_view_scale_contrast (vu, vu->step);
       break;
     case 'z':
-      demo_view_scale_contrast (vu, 1. / STEP);
+      demo_view_scale_contrast (vu, 1. / vu->step);
       break;
     case 'g':
-      demo_view_scale_gamma_adjust (vu, STEP);
+      demo_view_scale_gamma_adjust (vu, vu->step);
       break;
     case 'b':
-      demo_view_scale_gamma_adjust (vu, 1. / STEP);
+      demo_view_scale_gamma_adjust (vu, 1. / vu->step);
       break;
     case 'c':
       demo_view_toggle_srgb (vu);
       break;
 
     case '=':
-      demo_view_scale (vu, STEP);
+      demo_view_scale (vu, vu->step);
       break;
     case '-':
-      demo_view_scale (vu, 1. / STEP);
+      demo_view_scale (vu, 1. / vu->step);
       break;
 
     case 'k':
@@ -435,6 +436,31 @@ demo_view_keyboard_func (demo_view_t *vu, unsigned char key, int x, int y)
     case 'r':
       demo_view_reset (vu);
       break;
+
+    case '?':
+     LOGI("' ' : toggle animation\n");
+     LOGI("'v' : toggle vsync\n");
+     LOGI("'f' : toggle fullscreen\n");
+     LOGI("'d' : toggle debug\n");
+     LOGI("'o' : toggle outline\n");
+     LOGI("'p' : increase outline thickness\n");
+     LOGI("'i' : decrease outline thickness\n");
+     LOGI("'0' : increase boldness\n");
+     LOGI("'9' : decrease boldness\n");
+     LOGI("'a' : increase contrast\n");
+     LOGI("'z' : decrease contrast\n");
+     LOGI("'g' : increase gamma\n");
+     LOGI("'b' : decrease gamma\n");
+     LOGI("'c' : toggle sRGB\n");
+     LOGI("'=' : increase scale\n");
+     LOGI("'-' : decrease scale\n");
+     LOGI("'k' : translate down\n");
+     LOGI("'j' : translate up\n");
+     LOGI("'h' : translate right\n");
+     LOGI("'l' : translate left\n");
+     LOGI("'r' : reset settings\n");
+     LOGI("'?' : print commands\n");
+     break;
 
     default:
       return;
@@ -658,4 +684,7 @@ demo_view_setup (demo_view_t *vu)
   if (!vu->srgb)
     demo_view_toggle_srgb (vu);
   demo_glstate_setup (vu->st);
+
+  //print commands
+  demo_view_keyboard_func(vu,'?',0,0);
 }
