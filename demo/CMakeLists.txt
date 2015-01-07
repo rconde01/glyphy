@@ -18,6 +18,9 @@ set(SHADERS
 	demo-atlas.glsl
 	demo-fshader.glsl
 	demo-vshader.glsl)
+
+set(STRINGIZE_PATH
+	"${CMAKE_SOURCE_DIR}/src/stringize.cmake")
 	
 set(SHADERHEADERS)
 foreach(_shaderFile ${SHADERS})
@@ -25,8 +28,9 @@ foreach(_shaderFile ${SHADERS})
 	list(APPEND SHADERHEADERS ${_sheader})
 	add_custom_command(
 		OUTPUT ${_sheader}
-		COMMAND ${CMAKE_COMMAND} -DHEADER_FILE="${_sheader}" -DSHADER_FILE="${_shaderFile}" -P "${CMAKE_SOURCE_DIR}/src/stringize.cmake"
-		DEPENDS ${_shaderFile})
+		COMMAND ${CMAKE_COMMAND} -DHEADER_FILE="${_sheader}" -DSHADER_FILE="${_shaderFile}" -P "${STRINGIZE_PATH}"
+		DEPENDS ${_shaderFile}
+		WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/demo")
 endforeach()
 
 set(GLYPHY_DEMO_SRC

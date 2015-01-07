@@ -10,14 +10,18 @@ set(SHADERS
 	glyphy-common.glsl
 	glyphy-sdf.glsl)
 	
+set(STRINGIZE_PATH
+	"${CMAKE_SOURCE_DIR}/src/stringize.cmake")
+	
 set(SHADERHEADERS)
 foreach(_shaderFile ${SHADERS})
 	string(REPLACE ".glsl" "-glsl.h" _sheader ${_shaderFile})
 	list(APPEND SHADERHEADERS ${_sheader})
 	add_custom_command(
 		OUTPUT ${_sheader}
-		COMMAND ${CMAKE_COMMAND} -DHEADER_FILE="${_sheader}" -DSHADER_FILE="${_shaderFile}" -P stringize.cmake
-		DEPENDS ${_shaderFile})
+		COMMAND ${CMAKE_COMMAND} -DHEADER_FILE="${_sheader}" -DSHADER_FILE="${_shaderFile}" -P "${STRINGIZE_PATH}"
+		DEPENDS ${_shaderFile}
+		WORKING_DIRECTORY "${CMAKE_SOURCE_DIR}/src")
 endforeach()
 
 
